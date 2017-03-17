@@ -13,7 +13,8 @@
     "redux": "^3.6.0",
     "normalizr": "3.0.0",
     "humps": "^1.1.0",
-    "redux-thunk": "^2.1.0"
+    "redux-thunk": "^2.1.0",
+    "whatwg-fetch":"2.0.3"
   },
     "devDependencies": {
     "custom-react-scripts": "0.0.23",
