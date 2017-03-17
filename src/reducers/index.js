@@ -1,9 +1,10 @@
-import { routerReducer as routing } from 'react-router-redux'
-import { combineReducers } from 'redux'
+import { combineReducers } from 'redux';
+import { routerReducer as routing } from 'react-router-redux';
+import { items, itemsHasErrored, itemsIsLoading } from './items';
 
-
-const rootReducer = combineReducers({
-   routing
-})
-
-export default rootReducer
+export default combineReducers({
+    items,
+    itemsHasErrored,
+    itemsIsLoading,
+    routing
+});
