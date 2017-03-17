@@ -1,69 +1,53 @@
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
-import Explore from '../components/Explore'
-import { resetErrorMessage } from '../actions'
+import React, { Component } from 'react';
 
 class App extends Component {
+    constructor() {
+        super();
 
-  handleDismissClick = e => {
-    this.props.resetErrorMessage()
-    e.preventDefault()
-  }
-
-  handleChange = nextValue => {
-      
-    console.log(nextValue);
-    browserHistory.push(`/${nextValue}`)
-  }
-
-  renderErrorMessage() {
-    const { errorMessage } = this.props
-    if (!errorMessage) {
-      return null
+        this.state = {
+            items: [
+                {
+                    id: 1,
+                    label: 'List item 1'
+                },
+                {
+                    id: 2,
+                    label: 'List item 2'
+                },
+                {
+                    id: 3,
+                    label: 'List item 3'
+                },
+                {
+                    id: 4,
+                    label: 'List item 4'
+                }
+            ],
+            hasErrored: false,
+            isLoading: false
+        };
     }
 
-    return (
-      <p style={{ backgroundColor: '#e99', padding: 10 }}>
-        <b>{errorMessage}</b>
-        {' '}
-        (<a href="#"
-            onClick={this.handleDismissClick}>
-          Dismiss
-        </a>)
-      </p>
-    )
-  }
+    render() {
+        if (this.state.hasErrored) {
+            return <p>Sorry! There was an error loading the items</p>;
+        }
 
-  render() {
-    const { children, inputValue } = this.props
-    return (
-      <div>
-        <Explore value={inputValue}
-                 onChange={this.handleChange} />
-        <hr />
-        {this.renderErrorMessage()}
-        {children}
-      </div>
-    )
-  }
+        if (this.state.isLoading) {
+            return <p>Loading…</p>;
+        }
+
+        return (
+            <ul>
+    <p>ff</p>
+                {this.state.items.map((item) => (
+                    <li key={item.id}>
+                        {item.label}
+                    </li>
+                ))}
+            </ul>
+        );
+    }
 }
 
-App.propTypes = {
-    // Injected by React Redux
-    errorMessage: PropTypes.string,
-    resetErrorMessage: PropTypes.func.isRequired,
-    inputValue: PropTypes.string.isRequired,
-    // Injected by React Router
-    children: PropTypes.node
-  }
-
-
-const mapStateToProps = (state, ownProps) => ({
-  errorMessage: state.errorMessage,
-  inputValue: ownProps.location.pathname.substring(1)
-})
-
-export default connect(mapStateToProps, {
-  resetErrorMessage
-})(App)
+export default App;
